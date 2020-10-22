@@ -1,0 +1,6 @@
+FROM mongo:4.0.16
+EXPOSE 27017
+
+ENV MONGO_INITDB_DATABASE Payments
+
+COPY dbsetup.js /docker-entrypoint-initdb.d/
