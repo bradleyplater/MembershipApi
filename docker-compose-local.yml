@@ -1,0 +1,25 @@
+version: "3"
+services: 
+    test:
+        image: mcr.microsoft.com/dotnet/core/sdk:3.1.402-alpine3.12
+        depends_on: 
+            - membership-api
+            - mongo
+        entrypoint: ["dotnet","test", "/builds/MembershipApi.IntergrationTests/MembershipApi.IntergrationTests.csproj", "--configuration", "Release"]
+        volumes:
+            - .:/builds
+        
+    membership-api:
+        build:
+            context: .
+            dockerfile: Dockerfile_local
+        depends_on:
+            - mongo
+        ports:
+            - 9000:80
+    mongo:
+        build:
+            context: .
+            dockerfile: Dockerfile_mongo
+        ports:
+            - 27017
