@@ -30,7 +30,7 @@ namespace MembershipApi.Controllers
             return NotFound("No Account could be found with this Id");
         }
 
-
+        //test
         [HttpPost]
         public ActionResult RegisterAccount([FromBody]UserPostDto user)
         {
