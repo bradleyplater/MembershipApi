@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.402-alpine3.12
+
+COPY . .
+
+RUN dotnet restore ./MembershipApi.IntergrationTests/MembershipApi.IntergrationTests.csproj
+
+WORKDIR /MembershipApi.IntergrationTests
+RUN dotnet test

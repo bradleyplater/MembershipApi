@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using System.Reflection;
+using System.IO;
 
 namespace MembershipApi
 {
@@ -46,6 +48,7 @@ namespace MembershipApi
 			}
 
 			app.UseHttpsRedirection();
+
 
 			app.UseRouting();
 
