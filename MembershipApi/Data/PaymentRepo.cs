@@ -1,5 +1,6 @@
 ﻿using MembershipApi.Models;
 using MongoDB.Driver;
+using System;
 
 namespace MembershipApi.Data
 {
@@ -13,9 +14,17 @@ namespace MembershipApi.Data
 			_Users = database.GetCollection<User>("users");
 		}
 
-		public void AddNewUser(User user)
+		public User AddNewUser(User user)
 		{
+			Random random = new Random();
+			int newId = random.Next(100000,999999);
+			while(_Users.Find(user => user.EmployeeId == newId).SingleOrDefault() != null)
+			{
+				newId = random.Next(100000, 999999);
+			}
+			user.EmployeeId = newId;
 			_Users.InsertOne(user);
+			return user;
 		}
 
 		public User GetBalanceById(int id)

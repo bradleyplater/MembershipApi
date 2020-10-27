@@ -3,10 +3,11 @@ using MembershipApi.Data;
 using MembershipApi.Dtos;
 using MembershipApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace MembershipApi.Controllers
 {
-    [Route("api/payments")]
+    [Route("api/accounts")]
     [ApiController]
     public class PaymentController : Controller
     {
@@ -30,11 +31,12 @@ namespace MembershipApi.Controllers
         }
 
 
-        [HttpPost("/register")]
+        [HttpPost]
         public ActionResult RegisterAccount([FromBody]UserPostDto user)
         {
-            _paymentRepo.AddNewUser(_mapper.Map<User>(user));
-            return Created("here",user);
+            if(user.Name == null) { return BadRequest(); }
+            User createdUser = _paymentRepo.AddNewUser(_mapper.Map<User>(user));
+            return Created("here",createdUser);
         }
     }
 }
