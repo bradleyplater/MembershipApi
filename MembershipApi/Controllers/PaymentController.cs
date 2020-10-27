@@ -30,7 +30,6 @@ namespace MembershipApi.Controllers
             return NotFound("No Account could be found with this Id");
         }
 
-        //test
         [HttpPost]
         public ActionResult RegisterAccount([FromBody]UserPostDto user)
         {
@@ -38,5 +37,12 @@ namespace MembershipApi.Controllers
             User createdUser = _paymentRepo.AddNewUser(_mapper.Map<User>(user));
             return Created("here",createdUser);
         }
+
+        [HttpPatch("{id}")]
+        public ActionResult TopUpAccount([FromBody]TopUp user)
+        {
+            return Ok();
+        }
+
     }
 }
