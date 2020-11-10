@@ -1,5 +1,10 @@
 <h1 align="center">Welcome to Membership Api  👋</h1>
-![.NET Core](https://github.com/bradleyplater/MembershipApi/workflows/.NET%20Core/badge.svg)
+<p>
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/bradleyplater/MembershipApi/.NET%20Core">
+    <img alt="Version" src="https://img.shields.io/badge/Version-1.0.4-blue">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+</p>
+
 
 ### 🏠 [Homepage](https://github.com/bradleyplater/MembershipApi)
 
@@ -7,13 +12,13 @@
 In order to run this Api you need the following installed on your machine - 
 
 ### To Run from Docker(Recommended) - 
-Docker
-Postman (Any Application which can make called to an Api)
+- Docker
+- Postman (Any Application which can make called to an Api)
 
 ### To Run from Machine(Not recommended) 
-.Net core 3.1 SDK
-MongoDb
-An understanding on how to connecting to a local MongoDb and setting up the tests accordingly
+- .Net core 3.1 SDK
+- MongoDb
+- An understanding on how to connecting to a local MongoDb and setting up the tests accordingly
 
 
 ## Install 
@@ -69,7 +74,7 @@ dotnet test
 
 ## Author
 
-👤 **Bradley Plater **
+👤 **Bradley Plater**
 
 * Github: [@bradleyplater](https://github.com/bradleyplater)
 
