@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using AutoMapper;
 using System.Reflection;
 using System.IO;
+using MembershipApi.Models;
 
 namespace MembershipApi
 {
@@ -35,7 +36,8 @@ namespace MembershipApi
 			services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
 			services.AddSingleton<IDatabaseSettings>(x => x.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 			services.AddSingleton<IPaymentRepo, PaymentRepo>();
-
+			services.AddSingleton<IItemTypes, ItemTypes>();
+			services.AddSingleton<IOrder, OrderHelper>();
 			services.AddControllers();
 		}
 

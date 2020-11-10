@@ -3,6 +3,8 @@ using MembershipApi.Data;
 using MembershipApi.Dtos;
 using MembershipApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace MembershipApi.Controllers
@@ -13,11 +15,15 @@ namespace MembershipApi.Controllers
     {
         private readonly IPaymentRepo _paymentRepo;
         private readonly IMapper _mapper;
+        private readonly IItemTypes _items;
+        private readonly IOrder _orderHelper;
 
-        public PaymentController(IPaymentRepo paymentRepo, IMapper mapper)
+        public PaymentController(IPaymentRepo paymentRepo, IMapper mapper, IItemTypes items, IOrder orderHelper)
         {
             _paymentRepo = paymentRepo;
             _mapper = mapper;
+            _items = items;
+            _orderHelper = orderHelper;
         }
         [HttpGet("{id}/balance")]
         public ActionResult GetBalance(int id)
@@ -39,10 +45,22 @@ namespace MembershipApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public ActionResult TopUpAccount([FromBody]TopUp user)
+        public ActionResult TopUpAccount(int id , [FromBody]TopUp topUp)
         {
-            return Ok();
+            if(topUp.Amount == 0) { return BadRequest(); }
+            User updatedUser = _paymentRepo.UpdateUserTopUp(id, topUp.Amount);
+            return Ok(_mapper.Map<User>(updatedUser));
         }
 
+        [HttpPatch("{id}/purchase")]
+        public ActionResult PurchaseItems(int id, [FromBody]Dictionary<string, int> requestedItems)
+        {
+            if (!_orderHelper.CheckItemsRequestedInItemTypes(requestedItems)){ return BadRequest("Requested item doesn't exist"); }
+            _orderHelper.CalculateBasket(requestedItems);
+            double balance = _mapper.Map<UserDto>(_paymentRepo.GetBalanceById(id)).Balance;
+
+            if (_orderHelper.CheckAccountHasEnoughBalance(balance)) { return BadRequest("Not enough funds"); }
+            return Ok(_paymentRepo.UpdateUserPurchase(id, _orderHelper.basketTotal));
+        }
     }
 }
