@@ -16,11 +16,11 @@
 ## Pre-Requisites
 In order to run this Api you need the following installed on your machine - 
 
-# To Run from Docker(Recommended) - 
+### To Run from Docker(Recommended) - 
 Docker
 Postman (Any Application which can make called to an Api)
 
-# To Run from Machine(Not recommended) 
+### To Run from Machine(Not recommended) 
 .Net core 3.1 SDK
 MongoDb
 An understanding on how to connecting to a local MongoDb and setting up the tests accordingly
@@ -34,32 +34,34 @@ docker-compose /f ./docker-compose-local.yml up --build
 
 ## Usage
 To use the api run the following endpoints in Postman - 
-# Get Balance
+### Get Balance
 ```sh
 GET - http://localhost:9000/api/accounts/{UserId}/balance
 ```
 
-#Create Account
+### Create Account
 ```sh
 POST - http://localhost:9000/api/accounts
 BODY - {
     "Name" : "Bradley"
 }
 ```
-#TopUp Account
+### TopUp Account
 ```sh
 PATCH - http://localhost:9000/api/accounts/{UserId}
 BODY - {
     "Amount" : 11.22
 }
 ```
-#Purchase Item Account
+### Purchase Item Account
 ```sh
 PATCH - http://localhost:9000/api/accounts/{UserId}
 BODY - {
     "Amount" : 11.22
 }
-
+```
+#### Menu
+```sh
 ITEMS - {
     "Orange" : 1.25,
     "Tea" : 0.99
