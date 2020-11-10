@@ -1,15 +1,5 @@
 <h1 align="center">Welcome to Membership Api  👋</h1>
-<p>
-  <a href="https://www.npmjs.com/package/membershipapi" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/membershipapi.svg">
-  </a>
-  <a href="https://github.com/bradleyplater/MembershipApi" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p>
+![.NET Core](https://github.com/bradleyplater/MembershipApi/workflows/.NET%20Core/badge.svg)
 
 ### 🏠 [Homepage](https://github.com/bradleyplater/MembershipApi)
 
