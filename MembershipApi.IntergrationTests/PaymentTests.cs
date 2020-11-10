@@ -6,6 +6,7 @@ using MembershipApi.IntergrationTests;
 using Xunit;
 using Newtonsoft.Json;
 using MembershipApi.Dtos;
+using MembershipApi.Models;
 
 namespace MembershipApi.IntegrationTests
 {
@@ -33,7 +34,7 @@ namespace MembershipApi.IntegrationTests
             // Act
             var response = await Client.GetAsync(request);
 
-            // Assert
+            // Asserts
             Assert.Equal(ExpectedOutput, response.StatusCode);
         }
 
@@ -97,6 +98,53 @@ namespace MembershipApi.IntegrationTests
 
             // Assert
             Assert.Equal(ExpectedOutput, response.StatusCode);
+        }
+        [Theory]
+        [InlineData(532, 1.00, HttpStatusCode.OK)]
+        [InlineData(444, 1.00, HttpStatusCode.OK)]
+        [InlineData(121, 1.00, HttpStatusCode.OK)]
+
+        public async Task TestPatchAccountsReturnsCorrectStatusCodeAsync(int id, double amount, HttpStatusCode ExpectedOutput)
+        {
+            var request = new
+            {
+                Url = $"/api/accounts/{id}",
+                Body = new
+                {
+                    Amount = amount
+                }
+            };
+
+            // Act
+            var response = await Client.PatchAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+
+            // Assert
+            Assert.Equal(ExpectedOutput, response.StatusCode);
+        }
+        [Theory]
+        [InlineData(10, 600, "Liam", 13.50)]
+        [InlineData(1.50, 601, "George", 11.50)]
+        [InlineData(0.50, 602, "Becca", 154.83)]
+
+        public async Task TestPatchAccountsReturnsCorrectResponseAsync(double topUpAmmount, int id, string expectedName, double expectedBalance)
+        {
+            var request = new
+            {
+                Url = $"/api/accounts/{id}",
+                Body = new
+                {
+                    Amount = topUpAmmount
+                }
+            };
+
+            // Act
+            var response = await Client.PatchAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var jsonFromResponse = await response.Content.ReadAsStringAsync();
+            User result = JsonConvert.DeserializeObject<User>(jsonFromResponse);
+            // Assert
+            Assert.Equal(id, result.EmployeeId);
+            Assert.Equal(expectedName, result.Name);
+            Assert.Equal(expectedBalance, result.Balance);
         }
     }
 }

@@ -31,5 +31,21 @@ namespace MembershipApi.Data
 		{
 			return _Users.Find(user => user.EmployeeId == id).SingleOrDefault();
 		}
+
+		public User UpdateUserTopUp(int id, double amount)
+		{
+			var filter = Builders<User>.Filter.Eq("EmployeeId", id);
+			var update = new UpdateDefinitionBuilder<User>().Inc(user => user.Balance, amount);
+			_Users.FindOneAndUpdate(filter, update);
+			return GetBalanceById(id);
+		}
+		public User UpdateUserPurchase(int id, double purchaseAmount)
+		{
+			var filter = Builders<User>.Filter.Eq("EmployeeId", id);
+			var update = new UpdateDefinitionBuilder<User>().Inc(user => user.Balance, -purchaseAmount);
+			_Users.FindOneAndUpdate(filter, update);
+			return GetBalanceById(id);
+
+		}
 	}
 }
